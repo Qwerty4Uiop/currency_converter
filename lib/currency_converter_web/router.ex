@@ -17,6 +17,7 @@ defmodule CurrencyConverterWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/convert", ConvertController, :convert
   end
 
   # Other scopes may use custom stacks.
