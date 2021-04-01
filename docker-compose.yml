@@ -1,0 +1,27 @@
+web:
+  build: .
+  ports:
+    - "4000:4000"
+  command: mix do ecto.create, ecto.migrate, phx.server
+  environment:
+    - MIX_ENV=dev
+    - PORT=4000
+  volumes:
+    - .:/currency_converter
+  links:
+    - db
+db:
+  image: postgres
+  environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_HOST=db
+test:
+  image: currency_converter_web
+  command: mix test
+  environment:
+    - MIX_ENV=test
+  volumes_from:
+    - web
+  links:
+    - db
